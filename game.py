@@ -17,13 +17,15 @@ class SnakeGame:
 
             print(output)
 
-    def config_board(self):
+    def config_board(self, ex_snake_pos):
         for i, row in enumerate(self.board):
             for j, value in enumerate(row):
                 if i == 0 or i == len(self.board) - 1 or j == 0 or j == len(self.board[0]) - 1:
                     self.board[i][j] = "#"
                 elif [i, j] == self.snake.pos:
                     self.board[i][j] = self.snake.tag
+                elif ex_snake_pos != self.snake.pos:
+                    self.board[i][j] = " "
                 else:
                     self.board[i][j] = value
 
@@ -45,7 +47,11 @@ class SnakeGame:
         threading.Thread(target=self.snake.get_move,).start()
         while True:
             os.system("cls")
-            self.config_board()
+
+            ex_snake_pos = []
+            self.config_board(ex_snake_pos)
+            ex_snake_pos = self.snake.pos
+
             self.snake.move()
 
             if self.collision() == "#":
