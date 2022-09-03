@@ -4,10 +4,14 @@ import os
 import time
 
 class SnakeGame:
-    def __init__(self, snake) -> None:
-        self.board = [[" " for _ in range(50)] for _ in range(20)]
+    def __init__(self, snake, apple, row, col) -> None:
+        self.row = row
+        self.col = col
+        self.board = [[" " for _ in range(self.col)] for _ in range(self.row)]
         self.game_time = fpstimer.FPSTimer(10)
+
         self.snake = snake
+        self.apple = apple
 
     def draw_board(self):
         for i, row in enumerate(self.board):
@@ -24,6 +28,8 @@ class SnakeGame:
                     self.board[i][j] = "#"
                 elif [i, j] == self.snake.pos:
                     self.board[i][j] = self.snake.tag
+                elif [i, j] in self.apple.apple_poss:
+                    self.board[i][j] = self.apple.tag
                 elif [] != self.snake.pos:
                     self.board[i][j] = " "
                 else:
