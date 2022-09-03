@@ -6,4 +6,3 @@ game = SnakeGame(snake)
 
 
 game.update()
-
